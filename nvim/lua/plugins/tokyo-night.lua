@@ -11,19 +11,6 @@
 -- comment this line to enable the plugin
 if true then return {} end
 
-local transparent = false -- Track the transparency state
-
--- Define the function to toggle transparency
-function ToggleTransparency()
-    transparent = not transparent
-    require("onedarkpro").setup({
-        options = {
-            transparency = transparent,
-        },
-    })
-    vim.cmd("colorscheme onedark") -- Apply the theme after changing the transparency
-end
-
 -- Plugin setup
 return {
     -- add tokyonight

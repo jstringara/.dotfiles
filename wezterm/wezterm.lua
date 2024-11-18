@@ -13,7 +13,7 @@ end
 -- This is where you actually apply your config choices
 
 config.automatically_reload_config = true
-config.window_decorations = "TITLE"
+-- config.window_decorations = "TITLE | RESIZE"
 config.default_cursor_style = "BlinkingBlock"
 config.font = wezterm.font("Fira Code")
 config.default_prog = { "pwsh.exe" }
@@ -175,6 +175,21 @@ wezterm.on("update-right-status", function(window, _)
 		ARROW_FOREGROUND,
 		{ Text = SOLID_LEFT_ARROW },
 	}))
+end)
+
+local function get_current_working_dir(tab)
+	local current_dir = tostring(tab.active_pane.current_working_dir)
+	local HOME_DIR = string.format("file://%s", os.getenv("HOME"))
+
+	return current_dir == HOME_DIR and "." or string.gsub(current_dir, "(.*[/\\])(.*)", "%2")
+end
+
+wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
+	local cwd = string.format(" %s  %s ~ %s  ", "❯", get_current_working_dir(tab))
+
+	return {
+		{ Text = cwd },
+	}
 end)
 
 -- and finally, return the configuration to wezterm

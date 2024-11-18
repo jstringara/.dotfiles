@@ -8,7 +8,9 @@
     "lazyvim.plugins.extras.lang.markdown",
     "lazyvim.plugins.extras.lang.php",
     "lazyvim.plugins.extras.lang.python",
-    "lazyvim.plugins.extras.lang.sql"
+    "lazyvim.plugins.extras.lang.sql",
+    "lazyvim.plugins.extras.lang.tex",
+    "lazyvim.plugins.extras.lang.toml"
   ],
   "news": {
     "NEWS.md": "7107"
