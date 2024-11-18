@@ -1,13 +1,23 @@
-# theme: hacker
-#oh-my-posh init pwsh --config 'C:\Users\jacop\AppData\Local\Programs\oh-my-posh\themes\microverse-power.omp.json' | Invoke-Expression
-oh-my-posh init pwsh --config 'C:\Users\jacop\AppData\Local\Programs\oh-my-posh\themes\powerlevel10K_rainbow.omp.json' | Invoke-Expression
+# set the XDG_CONFIG_HOME
+$env:XDG_CONFIG_HOME = "$env:USERPROFILE\.config"
 
-# PSReadLine
+# change the git config position
+$env:GIT_CONFIG_GLOBAL = "$env:USERPROFILE\.config\.gitconfig"
+
+# Terminal Icons
+Import-Module -Name Terminal-Icons
+
+#oh-my-posh init pwsh --config 'C:\Users\jacop\AppData\Local\Programs\oh-my-posh\themes\microverse-power.omp.json' | Invoke-Expression
+#oh-my-posh init pwsh --config 'C:\Users\jacop\AppData\Local\Programs\oh-my-posh\themes\powerlevel10K_rainbow.omp.json' | Invoke-Expression
+
+# custom profile
+oh-my-posh init pwsh --config $env:XDG_CONFIG_HOME/powershell/jacop.omp.json | Invoke-Expression
+
 # Mode indicator
 $OnViModeChange = [scriptblock]{
     if ($args[0] -eq 'Command') {
         # Set the cursor to a blinking block.
-        Write-Host -NoNewLine "`e[1 q"
+        Write-Host -NoNewLine ""
     }
     else {
         # Set the cursor to a blinking line.
@@ -36,24 +46,16 @@ function which ($cmd) {
     Select-Object -ExpandProperty Path -ErrorAction SilentlyContinue
 }
 
-function touch {	
+function touch {
   set-content -Path ($args[0]) -Value ($null)
-} 
+}
 
 function ll {
     Get-ChildItem | Format-Wide -Column 3
 }
 
-
-# import thee oh-my-posh autocomplete from 'autocomplete.ps1'
+# import the oh-my-posh autocomplete from 'autocomplete.ps1'
 . $env:USERPROFILE\.config\powershell\autocomplete.ps1
 
-# set the XDG_CONFIG_HOME
-$env:XDG_CONFIG_HOME = "$env:USERPROFILE\.config"
-
-# change the git config position
-$env:GIT_CONFIG_GLOBAL = "$env:USERPROFILE\.config\.gitconfig"
-
-# Run the winfetch script
-#winfetch
+# Run the fastfetch script
 fastfetch
