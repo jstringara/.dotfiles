@@ -50,6 +50,7 @@ config.colors = {
 		},
 	},
 }
+config.window_background_opacity = 1.0 -- make the background transparent
 
 -- tmux-like keybindings
 config.leader = { key = "b", mods = "CTRL", timeout_milliseconds = 2000 }
