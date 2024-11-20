@@ -14,45 +14,67 @@ return {
     {
         "onsails/lspkind-nvim",
         config = function()
-            require("lspkind").init() -- Initialize lspkind for symbol formatting
+            require("lspkind").init()
         end,
     },
     {
         "hrsh7th/nvim-cmp",
+        requires = {
+            "quangnguyen30192/cmp-nvim-ultisnips",
+            requires = { "nvim-treesitter/nvim-treesitter" },
+        },
         config = function()
-            -- Ensure lspkind is loaded
+            local cmp = require("cmp")
             local lspkind = require("lspkind")
+            local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
 
-            require("cmp").setup({
-                -- Other setup for nvim-cmp
-                formatting = {
-                    format = lspkind.cmp_format({
-                        mode = "symbol", -- Format as symbols (default: 'text')
-                        max_width = 50, -- Max width for the display
-                        symbol_map = { Copilot = "" }, -- Custom icon for Copilot
-                    }),
-                    fields = { "abbr", "kind", "menu" }, -- Order of fields in the completion menu
-                    expandable_indicator = true, -- Indicator for expandable items
-                },
-                sources = {
-                    { name = "ultisnips" }, -- For ultisnips users.
-                    { name = "copilot" },
-                    { name = "nvim_lsp" },
-                    { name = "luasnip" },
-                    { name = "symbol" },
-                    -- Other sources
-                },
-                mapping = {
-                    ["<C-Space>"] = require("cmp").mapping.complete(), -- Trigger completion
-                    ["<CR>"] = require("cmp").mapping.confirm({ select = true }), -- Accept suggestion
-                    ["<Tab>"] = require("cmp").mapping.select_next_item(), -- Select next item
-                    ["<S-Tab>"] = require("cmp").mapping.select_prev_item(), -- Select previous item
-                    -- Other mappings
-                },
+            cmp.setup({
                 snippet = {
                     expand = function(args)
-                        vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+                        vim.fn["UltiSnips#Anon"](args.body)
                     end,
+                },
+                sources = cmp.config.sources({
+                    { name = "copilot" }, -- Copilot
+                    { name = "ultisnips" }, -- UltiSnips
+                    { name = "nvim_lsp" }, -- LSP
+                    -- { name = "luasnip" }, -- LuaSnip (if needed)
+                    { name = "symbol" }, -- Symbol source
+                }),
+                mapping = {
+                    ["<Tab>"] = function(fallback)
+                        if cmp.visible() then
+                            if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
+                                -- Only expand the snippet when it can be expanded
+                                vim.fn["UltiSnips#JumpForwards"]()
+                            else
+                                cmp.select_next_item()
+                            end
+                        else
+                            fallback()
+                        end
+                    end,
+                    ["<S-Tab>"] = function(fallback)
+                        if cmp.visible() then
+                            if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
+                                vim.fn["UltiSnips#JumpBackwards"]()
+                            else
+                                cmp.select_prev_item()
+                            end
+                        else
+                            fallback()
+                        end
+                    end,
+                    ["<CR>"] = cmp.mapping.confirm({ select = true }),
+                },
+                formatting = {
+                    format = lspkind.cmp_format({
+                        mode = "symbol",
+                        max_width = 50,
+                        symbol_map = { Copilot = "" },
+                    }),
+                    fields = { "abbr", "kind", "menu" },
+                    expandable_indicator = true,
                 },
             })
         end,
