@@ -138,8 +138,8 @@ snippet ali "Align" b
 endsnippet
 
 
-context "math()"
 #snippet // "Fraction" iA
+context "math()"
 snippet // "Fraction" i
 \\frac{$1}{$2}$0
 endsnippet
@@ -148,8 +148,8 @@ snippet / "Fraction" i
 \\frac{${VISUAL}}{$1}$0
 endsnippet
 
-context "math()"
 #snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "symbol frac" wrA
+context "math()"
 snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "symbol frac" wr
 \\frac{`!p snip.rv = match.group(1)`}{$1}$0
 endsnippet
