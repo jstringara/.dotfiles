@@ -1,3 +1,12 @@
 [user]
 	name = jstringara
 	email = 62561822+jstringara@users.noreply.github.com
+	signingkey = C:\\Users\\jacop\\.ssh\\id_rsa.pub
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
+[tag]
+	gpgSign = true
+[gpg "ssh"]
+	allowedSignersFile = C:\\Users\\jacop\\.ssh\\allowed_signers
