@@ -51,6 +51,7 @@ config.colors = {
 	},
 }
 config.window_background_opacity = 1.0 -- make the background transparent
+config.max_fps = 240 -- increase the frame rate
 
 -- tmux-like keybindings
 config.leader = { key = "b", mods = "CTRL", timeout_milliseconds = 2000 }
