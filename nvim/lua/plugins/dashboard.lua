@@ -60,9 +60,10 @@ return {
                 {
                     pane = 2,
                     section = "terminal",
-                    cmd = "krabby random --info",
-                    height = 20,
+                    cmd = "krabby random --info;",
+                    height = 25,
                     padding = 2,
+                    ttl = 0,
                 },
                 -- browse repo
                 -- {
