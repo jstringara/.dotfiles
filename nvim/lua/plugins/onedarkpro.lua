@@ -29,6 +29,7 @@ end
 return {
     {
         "olimorris/onedarkpro.nvim",
+        enabled = true,
         priority = 1000,
         config = function()
             -- Set up the theme with the initial transparency setting
