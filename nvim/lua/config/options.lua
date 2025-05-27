@@ -6,6 +6,10 @@ vim.o.expandtab = true -- Pressing the TAB key will insert spaces instead of a T
 vim.o.softtabstop = 4 -- Number of spaces inserted instead of a TAB character
 vim.o.shiftwidth = 4 -- Number of spaces inserted when indenting
 
+-- spelling in both english and italian
+vim.o.spell = true
+vim.o.spelllang = "en_us,it"
+
 vim.o.termguicolors = true
 
 -- Check if 'pwsh' is executable and set the shell accordingly
