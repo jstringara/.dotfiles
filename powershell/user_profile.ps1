@@ -4,9 +4,6 @@ $env:XDG_CONFIG_HOME = "$env:USERPROFILE\.config"
 # change the git config position
 $env:GIT_CONFIG_GLOBAL = "$env:USERPROFILE\.config\.gitconfig"
 
-# Terminal Icons
-Import-Module -Name Terminal-Icons
-
 #oh-my-posh init pwsh --config 'C:\Users\jacop\AppData\Local\Programs\oh-my-posh\themes\microverse-power.omp.json' | Invoke-Expression
 #oh-my-posh init pwsh --config 'C:\Users\jacop\AppData\Local\Programs\oh-my-posh\themes\powerlevel10K_rainbow.omp.json' | Invoke-Expression
 
