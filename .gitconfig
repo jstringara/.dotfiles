@@ -10,3 +10,5 @@
 	gpgSign = true
 [gpg "ssh"]
 	allowedSignersFile = C:\\Users\\jacop\\.ssh\\allowed_signers
+[core]
+	editor = nvim
