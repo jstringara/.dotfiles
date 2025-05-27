@@ -1,0 +1,5 @@
+alias python="python3"
+# alias nvim="lvim"
+# alias nvim="lvim"
+alias vim="nvim"
+# alias vim="lvim"
