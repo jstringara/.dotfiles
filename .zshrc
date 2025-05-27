@@ -120,5 +120,5 @@ VI_MODE_CURSOR_OPPEND=0
 #  welcome banner if in the original shell
 if [ $SHLVL -eq "1" ];
 then
-    archey
+    fastfetch
 fi
