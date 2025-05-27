@@ -1,10 +1,30 @@
-vim.opt.shell = vim.fn.executable("pwsh") and "pwsh" or "powershell"
-vim.opt.shellcmdflag =
-    "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
-vim.opt.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
-vim.opt.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
-vim.opt.shellquote = ""
-vim.opt.shellxquote = ""
+local uname = vim.loop.os_uname()
+local is_windows = uname.sysname == "Windows_NT"
+
+if is_windows then
+    vim.opt.shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell"
+    vim.opt.shellcmdflag =
+        "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
+    vim.opt.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
+    vim.opt.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+    vim.opt.shellquote = ""
+    vim.opt.shellxquote = ""
+else
+    -- Prefer zsh, fallback to bash or sh
+    if vim.fn.executable("zsh") == 1 then
+        vim.opt.shell = "zsh"
+    elseif vim.fn.executable("bash") == 1 then
+        vim.opt.shell = "bash"
+    else
+        vim.opt.shell = "sh"
+    end
+
+    vim.opt.shellcmdflag = "-c"
+    vim.opt.shellredir = ">%s 2>&1"
+    vim.opt.shellpipe = "2>&1 | tee %s"
+    vim.opt.shellquote = ""
+    vim.opt.shellxquote = ""
+end
 
 return {
     {
